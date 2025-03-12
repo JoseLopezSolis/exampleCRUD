@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:exampleCRUD.ViewModels"
+             x:Class="exampleCRUD.Views.EmployeePage"
+             Title="{Binding pageTitle}"
+             >
+    <VerticalStackLayout Padding="15" x:DataType="vm:EmployeeViewModel">
+        <ActivityIndicator IsVisible="{Binding LoadingIsVisible}" 
+                           IsRunning="{Binding LoadingIsVisible}"
+                           Color="Blue"
+                           HeightRequest="30"/>
+        
+        <Label Text="Nombre completo"/>
+        <Entry Text="{Binding EmployeeDto.CompleteName}" Margin="0,0,0,10"/>
+        
+        <Label Text="Email"/>
+        <Entry Text="{Binding EmployeeDto.Email}" Margin="0,0,0,10"/>
+        
+        <Label Text="Sueldo"/>
+        <Entry Text="{Binding EmployeeDto.Salary}" Margin="0,0,0,10"/>
+        
+        <Label Text="Fecha de contratación"/>
+        <DatePicker Date="{Binding EmployeeDto.ContractDate}" Margin="0,0,0,10"></DatePicker>
+        
+        <Button Text="Guardar" Command="{Binding SaveCommand}" BackgroundColor="Green"></Button>
+        
+    </VerticalStackLayout>
+</ContentPage>

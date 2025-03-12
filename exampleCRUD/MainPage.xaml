@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:exampleCRUD.ViewModels"
+             xmlns:model="clr-namespace:exampleCRUD.DTOs"
+             x:Class="exampleCRUD.MainPage" 
+             x:DataType="vm:MainViewModel">
+    <Grid RowDefinitions="Auto, Auto, Auto"
+          RowSpacing="15"
+          Margin="15"
+    >
+    
+        <Label Grid.Row="0" 
+               Text="Employee List"
+               FontSize="Subtitle"
+               FontAttributes="Bold"/>
+            
+            <CollectionView Grid.Row="1" ItemsSource="{Binding EmployeeList}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+    
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:EmployeeDTO">
+                        <Border Padding="10,5"
+                                HorizontalOptions="Fill">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5"/>
+                            </Border.StrokeShape>
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+                                  ColumnDefinitions="Auto, *">
+    
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="Nombre Completo:"
+                                       FontAttributes="Bold"/>
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       Text="{Binding CompleteName}" />
+    
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="Correo:"
+                                       FontAttributes="Bold"/>
+                                <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="End"
+                                       Text="{Binding Email}" />
+    
+                                <Label Grid.Row="2" Grid.Column="0"
+                                       Text="Sueldo:" FontAttributes="Bold"/>
+                                <Label Grid.Row="2" Grid.Column="1" HorizontalOptions="End"
+                                       Text="{Binding Salary, StringFormat='{0:C}'}" />
+    
+                                <Label Grid.Row="3" Grid.Column="0"
+                                       Text="Fecha Contrato:" FontAttributes="Bold"/>
+                                <Label Grid.Row="3" Grid.Column="1" HorizontalOptions="End"
+                                       Text="{Binding ContractDate, StringFormat='{0:dd/MM/yyyy}'}" />
+    
+                                <Label Grid.Row="4" Grid.Column="0" Padding="0,20,10,5"
+                                       Text="Editar" TextColor="Blue">
+    
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding BindingContext.EditCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding}"/>
+                                    </Label.GestureRecognizers>
+    
+                                </Label>
+    
+                                <Label Grid.Row="4" Grid.Column="1" Padding="100, 20, 0, 5"
+                                       Text="Eliminar" TextColor="red">
+    
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding BindingContext.DeleteCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding}"/>
+                                    </Label.GestureRecognizers>
+    
+                                </Label>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        
+        <Button Grid.Row="2"
+                Text="New Employee"
+                Command="{Binding CreateCommand}"  />
+    </Grid>
+
+</ContentPage>
